@@ -2,8 +2,13 @@
 
 SoftwareSerial TestSerial(10, 11);
 
+int tokyo[9] = {22, 23, 24, 25, 26, 27, 28, 29, 30};
+int columbia[3] = {31, 32, 33};
+int paris[9] = {34, 35, 36, 37, 38, 39, 40, 41, 42};
+int rome[9] = {43, 44, 45, 46, 47, 48, 49, 50, 51};
+
 void setup() {
-  for (int i = 42; i <= 53; i++) {
+  for (int i = 22; i <= 39; i++) {
     pinMode(i, OUTPUT);
   }
   Serial.begin(9600);
@@ -20,11 +25,15 @@ void setup() {
 
 void loop() { //코드를 무한반복합니다.
   if (TestSerial.available()) {
-    char a = (char)TestSerial.read();
-    char b = (char)TestSerial.read();
-    Serial.println(b);
-    if(a == '1'){
-      newyork(b);
+    String player = (String)TestSerial.readString();
+    String country = (String)TestSerial.readString();
+    int building = (int)TestSerial.read();
+    char sell = (char)TestSerial.read();
+    if( sell == 'n'){
+      ledOn(player, country, building);
+    }
+    else if( sell == 'y'){
+      ledOff(country);
     }
   }
   delay(1000);
@@ -54,19 +63,30 @@ void yellowPlayer(int redPin, int greenPin, int bluePin) {
   digitalWrite(bluePin, LOW);
 }
 
-void newyork(int player) {
-  switch(player){
-    case '1':
-      redPlayer(46, 44, 42);
-      break;
-    case '2':
-      greenPlayer(46, 44, 42);
-      break;
-    case '3':
-      bluePlayer(46, 44, 42);
-      break;
-    case '4':
-      yellowPlayer(46, 44, 42);
-      break;
+void ledOn(String player, String country, int building){
+  if(country == "tokyo"){
+    tokyo(player, building);
+  } else if (country == "coulmbia"){
+    columbia(player, building);
+  } else if(country == "paris"){
+    paris(player, building);
+  } else{
+    rome(player, building);
   }
+}
+
+void ledOff(String coutry){
+  
+}
+
+void tokyo(String player, int building) {
+}
+
+void columbia(String player, int building) {
+}
+
+void paris(String player, int building) {
+}
+
+void rome(String player, int building){
 }
