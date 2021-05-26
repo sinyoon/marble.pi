@@ -33,7 +33,8 @@ void loop() { //코드를 무한반복합니다.
       ledOn(player, country, building);
     }
     else if( sell == 'y'){
-      ledOff(country);
+      player = "ledOff";
+      ledOn(player, country, building);
     }
   }
   delay(1000);
@@ -63,11 +64,17 @@ void yellowPlayer(int redPin, int greenPin, int bluePin) {
   digitalWrite(bluePin, LOW);
 }
 
+void ledOff(int redPin, int greenPin, int bluePin){
+  digitalWrite(redPin, LOW);
+  digitalWrite(greenPin, LOW);
+  digitalWrite(bluePin, LOW);
+}
+
 void ledOn(String player, String country, int building){
   if(country == "tokyo"){
     tokyo(player, building);
   } else if (country == "coulmbia"){
-    columbia(player, building);
+    columbia(player);
   } else if(country == "paris"){
     paris(player, building);
   } else{
@@ -75,18 +82,58 @@ void ledOn(String player, String country, int building){
   }
 }
 
-void ledOff(String coutry){
-  
-}
-
 void tokyo(String player, int building) {
+  if(player == "red"){
+    redPlayer(22+building, 23+building, 24+building);
+  } else if (player == "green"){
+    greenPlayer(22+building, 23+building, 24+building);
+  } else if(player == "blue"){
+    bluePlayer(22+building, 23+building, 24+building);
+  } else if(player =="yellow"){
+    yellowPlayer(22+building, 23+building, 24+building);
+  } else {
+    ledOff(22+building, 23+building, 24+building);
+  }
 }
 
-void columbia(String player, int building) {
+void columbia(String player) {
+  if(player == "red"){
+    redPlayer(31, 32, 33);
+  } else if (player == "green"){
+    greenPlayer(31, 32, 33);
+  } else if(player == "blue"){
+    bluePlayer(31, 32, 33);
+  } else if(player =="yellow"){
+    yellowPlayer(31, 32, 33);
+  } else {
+    ledOff(31, 32, 33);
+  }
 }
 
 void paris(String player, int building) {
+  if(player == "red"){
+    redPlayer(34+building, 35+building, 36+building);
+  } else if (player == "green"){
+    greenPlayer(34+building, 35+building, 36+building);
+  } else if(player == "blue"){
+    bluePlayer(34+building, 35+building, 36+building);
+  } else if(player =="yellow"){
+    yellowPlayer(34+building, 35+building, 36+building);
+  } else {
+    ledOff(34+building, 35+building, 36+building);
+  }
 }
 
 void rome(String player, int building){
+  if(player == "red"){
+    redPlayer(43+building, 44+building, 45+building);
+  } else if (player == "green"){
+    greenPlayer(43+building, 44+building, 45+building);
+  } else if(player == "blue"){
+    bluePlayer(43+building, 44+building, 45+building);
+  } else if(player =="yellow"){
+    yellowPlayer(43+building, 44+building, 45+building);
+  } else {
+    ledOff(43+building, 44+building, 45+building);
+  }
 }
