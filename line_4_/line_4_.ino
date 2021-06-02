@@ -8,7 +8,7 @@ int paris[9] = {34, 35, 36, 37, 38, 39, 40, 41, 42};
 int rome[9] = {43, 44, 45, 46, 47, 48, 49, 50, 51};
 
 void setup() {
-  for (int i = 22; i <= 39; i++) {
+  for (int i = 22; i <= 51; i++) {
     pinMode(i, OUTPUT);
   }
   Serial.begin(9600);
