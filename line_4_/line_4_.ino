@@ -1,6 +1,7 @@
 #include<SoftwareSerial.h>
 
-SoftwareSerial TestSerial(10, 11);
+SoftwareSerial Line4Serial(16, 17);
+SoftwareSerial LineSerial(10, 11);
 
 int tokyo[9] = {22, 23, 24, 25, 26, 27, 28, 29, 30};
 int columbia[3] = {31, 32, 33};

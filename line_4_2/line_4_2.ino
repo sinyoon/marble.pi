@@ -1,6 +1,6 @@
 #include<SoftwareSerial.h>
 
-SoftwareSerial TestSerial(10, 11);
+SoftwareSerial LineSerial(10, 11);
 
 int london[9] = {22, 23, 24, 25, 26, 27, 28, 29, 30};
 int newyork[9] = {31, 32, 33, 34, 35, 36, 37, 38, 39};
@@ -23,7 +23,7 @@ void setup() {
 }
 
 void loop() { //코드를 무한반복합니다.
-  if (TestSerial.available()) {
+  if (LineSerial.available()) {
     String player = (String)TestSerial.readString();
     String country = (String)TestSerial.readString();
     int building = (int)TestSerial.read();

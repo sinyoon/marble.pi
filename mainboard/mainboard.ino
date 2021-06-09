@@ -1,6 +1,10 @@
 #include<SoftwareSerial.h>
 
-SoftwareSerial TestSerial(10, 11);
+SoftwareSerial Line1Serial(10, 11);
+SoftwareSerial Line2Serial(12, 13);
+SoftwareSerial Line3Serial(14, 15);
+SoftwareSerial Line4Serial(16, 17);
+SoftwareSerial MainboardSerial(18, 19);
 
 void setup() {
   Serial.begin(9600);
@@ -17,8 +21,23 @@ void setup() {
 
 void loop() { //코드를 무한반복합니다.
   
-  TestSerial.write("1");
-  TestSerial.write("4");
-  delay(1000);//블루투스를 통해 입력된 데이터 전달
+  if (MainboardSerial.available()) {
+    int information = (int)MainboardSerial.read();
+    Classification(information);
+  }
+  delay(1000);
 
+}
+
+void Classification(int information){
+  int line = ;
+  if(line == ){
+    Line1Serial.println(information);
+  } else if(line == ){
+    Line2Serial.println(information);
+  } else if(line == ){
+    Line3Serial.println(information);
+  } else {
+    Line4Serial.println(informarion);
+  }
 }

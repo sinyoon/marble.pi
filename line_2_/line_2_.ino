@@ -1,6 +1,7 @@
 #include<SoftwareSerial.h>
 
-SoftwareSerial TestSerial(10, 11);
+SoftwareSerial Line2Serial(12, 13);
+SoftwareSerial LineSerial(10, 11);
 
 int athens[9] = {22, 23, 24, 25, 26, 27, 28, 29, 30};
 int concorde[3] = {31, 32, 33};
