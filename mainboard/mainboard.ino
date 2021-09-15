@@ -11,33 +11,28 @@ void setup() {
   while (!Serial) {
     ; //시리얼통신이 연결되지 않았다면 코드 실행을 멈추고 무한 반복
   }
-
-
-  Serial.println("Hello World!");
-
-  //블루투스와 아두이노의 통신속도를 9600으로 설정
-  TestSerial.begin(9600);
+  MainboardSerial.begin(9600);
 }
 
 void loop() { //코드를 무한반복합니다.
   
   if (MainboardSerial.available()) {
     int information = (int)MainboardSerial.read();
-    Classification(information);
+    
   }
   delay(1000);
 
 }
 
-void Classification(int information){
-  int line = ;
-  if(line == ){
-    Line1Serial.println(information);
-  } else if(line == ){
-    Line2Serial.println(information);
-  } else if(line == ){
-    Line3Serial.println(information);
-  } else {
-    Line4Serial.println(informarion);
-  }
-}
+//void (int information){
+//  int line = in;
+//  if(line == ){
+//    Line1Serial.println(information);
+//  } else if(line == ){
+//    Line2Serial.println(information);
+//  } else if(line == ){
+//    Line3Serial.println(information);
+//  } else {
+//    Line4Serial.println(informarion);
+//  }
+//}
