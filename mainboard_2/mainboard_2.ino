@@ -10,6 +10,8 @@ void setup() {
     ; //시리얼통신이 연결되지 않았다면 코드 실행을 멈추고 무한 반복
   }
   MainboardSerial.begin(9600);
+  RaspiSerial.begin(9600);
+  StepmotorSerial.begin(9600);
 }
 
 void sendPositionInfo(String information){
