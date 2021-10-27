@@ -43,7 +43,11 @@ void loop() { //코드를 무한반복합니다.
       split(inString);
     }
     if (first == "L"){
-      
+      inString = inString.substring(blank + 1, inStringLength);
+      blank = inString.indexOf(' ');
+      String data = inString.substring(0, blank);
+      inString = inString.substring(blank + 1, inStringLength);
+      sendBuyBuilding(data, inString);
     }
   }
   delay(1000);
@@ -83,4 +87,24 @@ void sendData(String data){
   int x = data.substring(0, blank).toInt();
   int y = data.substring(blank + 1, dataLength).toInt();
   setLine(x, y);
+}
+
+void sendBuyBuilding(String data, String inString){
+  int blank = data.indexOf(',');
+  int dataLength = data.length();
+  int x = data.substring(0, blank).toInt();
+  int y = data.substring(blank + 1, dataLength).toInt();
+  sendtoline(x, y, inString);
+}
+
+void sendtoline(int x, int y, String inString){
+  if(x == 0 && 0 <= y && y < 11){
+      Line1Serial.println(land[x][y] + " " + inString);
+    } else if(0 <= x && x < 11 && y == 10){
+      Line2Serial.println(land[x][y] + " " + inString);
+    } else if(x == 10 && 0 <= y && y < 11){
+      Line3Serial.println(land[x][y] + " " + inString);
+    } else {
+      Line4Serial.println(land[x][y] + " " + inString);
+    }
 }
