@@ -3,7 +3,7 @@
 #define DiceSerial Serial2
 
 SoftwareSerial StepmotorSerial(12, 13);
-
+   
 void setup() {
   Serial.begin(9600);
   MainboardSerial.begin(9600);

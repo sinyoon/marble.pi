@@ -3,7 +3,7 @@
 SoftwareSerial TestSerial(10, 11);
 
 void setup() {
-  for (int i = 22; i <= 53; i++) {
+  for (int i = 22; i <= 45; i++) {
     pinMode(i, OUTPUT);
   }
   Serial.begin(9600);
@@ -13,36 +13,36 @@ void setup() {
 }
 
 void loop() { //코드를 무한반복합니다.
-  for (int i = 22; i <= 51; i+=3) {
-    if(i == 34){
-      i = 36;
+  for (int i = 22; i <= 43; i+=3) {
+    if(i == 31){
+      i = 34;
     }
     red(i, i + 1, i + 2);
     Serial.println(i);
     delay(100);
   }
   delay(1000);
-  for (int i = 22; i <= 51; i+=3) {
-    if(i == 34){
-      i = 36;
+  for (int i = 22; i <= 43; i+=3) {
+    if(i == 31){
+      i = 34;
     }
     green(i, i + 1, i + 2);
     Serial.println(i);
     delay(100);
   }
   delay(1000);
-  for (int i = 22; i <= 51; i+=3) {
-    if(i == 34){
-      i = 36;
+  for (int i = 22; i <= 43; i+=3) {
+    if(i == 31){
+      i = 34;
     }
     blue(i, i + 1, i + 2);
     Serial.println(i);
     delay(100);
   }
   delay(1000);
-  for (int i = 22; i <= 51; i+=3) {
-    if(i == 34){
-      i = 36;
+  for (int i = 22; i <= 43; i+=3) {
+    if(i == 31){
+      i = 34;
     }
     yellow(i, i + 1, i + 2);
     Serial.println(i);

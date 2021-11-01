@@ -14,8 +14,11 @@ void setup() {
 
 void loop() { //코드를 무한반복합니다.
   for (int i = 22; i <= 51; i+=3) {
-    if(i == 34){
-      i = 36;
+    if(i == 31){
+      i = 34;
+    }
+    if(i == 43){
+      i = 45;
     }
     red(i, i + 1, i + 2);
     Serial.println(i);
@@ -23,8 +26,11 @@ void loop() { //코드를 무한반복합니다.
   }
   delay(1000);
   for (int i = 22; i <= 51; i+=3) {
-    if(i == 34){
-      i = 36;
+    if(i == 31){
+      i = 34;
+    }
+    if(i == 43){
+      i = 45;
     }
     green(i, i + 1, i + 2);
     Serial.println(i);
@@ -32,8 +38,11 @@ void loop() { //코드를 무한반복합니다.
   }
   delay(1000);
   for (int i = 22; i <= 51; i+=3) {
-    if(i == 34){
-      i = 36;
+    if(i == 31){
+      i = 34;
+    }
+    if(i == 43){
+      i = 45;
     }
     blue(i, i + 1, i + 2);
     Serial.println(i);
@@ -41,8 +50,11 @@ void loop() { //코드를 무한반복합니다.
   }
   delay(1000);
   for (int i = 22; i <= 51; i+=3) {
-    if(i == 34){
-      i = 36;
+    if(i == 31){
+      i = 34;
+    }
+    if(i == 43){
+      i = 45;
     }
     yellow(i, i + 1, i + 2);
     Serial.println(i);
