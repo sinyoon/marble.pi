@@ -1,13 +1,13 @@
 #include<SoftwareSerial.h>
-#define MainboardSerial Serial1
-#define DiceSerial Serial2
 
 SoftwareSerial StepmotorSerial(12, 13);
+SoftwareSerial Serial1(18, 19);
+SoftwareSerial Serial2(16, 17);
    
 void setup() {
   Serial.begin(9600);
-  MainboardSerial.begin(9600);
-  DiceSerial.begin(9600);
+  Serial1.begin(9600);
+  Serial2.begin(9600);
   while (!Serial) {
     ; //시리얼통신이 연결되지 않았다면 코드 실행을 멈추고 무한 반복
   }
@@ -15,8 +15,12 @@ void setup() {
 }
 
 void loop() { //코드를 무한반복합니다.
-  if (DiceSerial.available()){
-    int diceNum = DiceSerial.readString().toInt();
+  if (StepmotorSerial.available()){
+    String start = StepmotorSerial.readStringUntil('\n');
+    StepmotorSerial.println(start);
+  }
+  if (Serial2.available()){
+    int diceNum = Serial2.readString().toInt();
     Serial.println(diceNum);
   }
   if (Serial.available()) {
@@ -25,11 +29,11 @@ void loop() { //코드를 무한반복합니다.
     String first = inString.substring(0, blank);
     
     if( first == "M" ){
-      StepmotorSerial.println(information);
+      StepmotorSerial.println(inString);
     } else if( first == "L" ){
-      MainboardSerial.println(information);
+      Serial1.println(inString);
     } else if( first == "B"){
-      MainboardSerial.println(information);
+      Serial1.println(inString);
     }
   }
   delay(1000);

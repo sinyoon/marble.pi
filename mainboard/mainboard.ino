@@ -1,11 +1,10 @@
 #include<SoftwareSerial.h>
 
-#define MainboardSerial Serial1
-
 SoftwareSerial Line1Serial(10, 11);
 SoftwareSerial Line2Serial(12, 13);
 SoftwareSerial Line3Serial(14, 15);
 SoftwareSerial Line4Serial(16, 17);
+SoftwareSerial Serial1(18, 19);
 
 int cnt = 1;
 
@@ -20,7 +19,7 @@ void setup() {
 void loop() { //코드를 무한반복합니다.
   
   if (Serial1.available()) {
-    String inString = Serial.readStringUntil('\n');
+    String inString = Serial1.readStringUntil('\n');
     int inStringLength = inString.length();
     int blank = inString.indexOf(' ');
     String first = inString.substring(0, blank);
