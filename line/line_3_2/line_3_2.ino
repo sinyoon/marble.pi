@@ -146,6 +146,10 @@ void madrid(String player, int building){
 }
 
 String slicing(){
+  blank = data.indexOf(" ");
+  if (blank == -1){
+    return data;
+  }
   String info = data.substring(0, blank);
   int dataLength = data.length();
   data = data.substring(blank + 1, dataLength);
