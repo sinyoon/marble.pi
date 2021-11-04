@@ -34,7 +34,6 @@ void loop() { //코드를 무한반복합니다.
       sendBuyBuilding(data, inString);
     }
   }
-  delay(1000);
 }
 
 void setLine(int x, int y, String data){
@@ -55,6 +54,7 @@ void split(String inString){
       int inStringLength = inString.length();
       if(blank == -1){
         sendData(inString);
+        Serial1.println("start");
         break;
       }
       String data = inString.substring(0, blank);
@@ -78,6 +78,7 @@ void sendBuyBuilding(String data, String inString){
   int x = data.substring(0, blank).toInt();
   int y = data.substring(blank + 1, dataLength).toInt();
   sendtoline(x, y, inString);
+  Serial1.println("start");
 }
 
 void sendtoline(int x, int y, String inString){
