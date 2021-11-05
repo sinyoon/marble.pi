@@ -2,10 +2,6 @@
 
 SoftwareSerial Line1Serial(10, 11);
 SoftwareSerial Line2Serial(12, 13);
-SoftwareSerial Line3Serial(14, 15);
-SoftwareSerial Line4Serial(16, 17);
-SoftwareSerial Serial1(18, 19);
-
 int cnt = 1;
 
 void setup() {
@@ -13,7 +9,11 @@ void setup() {
   while (!Serial) {
     ; //시리얼통신이 연결되지 않았다면 코드 실행을 멈추고 무한 반복
   }
-  Serial1.begin(9600);
+  Serial1.begin(9600); // 메안
+  Serial2.begin(9600); // line4
+  Serial3.begin(9600); // line3
+  Line1Serial.begin(9600);
+  Line2Serial.begin(9600);
 }
 
 void loop() { //코드를 무한반복합니다.
@@ -42,9 +42,9 @@ void setLine(int x, int y, String data){
     } else if(0 <= x && x < 11 && y == 10){
       Line2Serial.println(data);
     } else if(x == 10 && 0 <= y && y < 11){
-      Line3Serial.println(data);
+      Serial3.println(data);
     } else {
-      Line4Serial.println(data);
+      Serial2.println(data);
     }
 }
 
@@ -87,8 +87,8 @@ void sendtoline(int x, int y, String inString){
     } else if(0 <= x && x < 11 && y == 10){
       Line2Serial.println(inString);
     } else if(x == 10 && 0 <= y && y < 11){
-      Line3Serial.println(inString);
+      Serial3.println(inString);
     } else {
-      Line4Serial.println(inString);
+      Serial2.println(inString);
     }
 }

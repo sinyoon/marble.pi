@@ -1,15 +1,13 @@
 #include<SoftwareSerial.h>
 
 SoftwareSerial StepmotorSerial(12, 13);
-SoftwareSerial Serial1(18, 19); // 메인보드 1
-SoftwareSerial Serial2(16, 17); // 주사위
 
 bool inited = true;
 
 void setup() {
   Serial.begin(9600);
-  Serial1.begin(9600);
-  Serial2.begin(9600);
+  Serial1.begin(9600); // 메인 보드
+  Serial2.begin(9600); //주사위
   while (!Serial) {
     ; //시리얼통신이 연결되지 않았다면 코드 실행을 멈추고 무한 반복
   }
