@@ -1,8 +1,8 @@
 #include <AFMotor.h>
 #include <SoftwareSerial.h>
 
-AF_Stepper ystep(200, 1);
-AF_Stepper xstep(200, 2);
+AF_Stepper xstep(200, 1);
+AF_Stepper ystep(200, 2);
 SoftwareSerial MainboardSerial(A0, A1);
 
 bool inited = false;
@@ -29,15 +29,20 @@ void loop() {
     String destination = slicing();
     int player = slicing().toInt();
     sendDistance(currentLocation);
+    plocation(player);  
+    onMagnet();
+    comebackline(player);
     sendDistance(destination);
+    plocation(player);
+    offMagnet();
+    comebackline(player);
   }
-  delay(1000);
 }
 
 void movexstep(int dir){
   if(dir < 0){
     for (int j = 0; j < (dir * -1);j++){
-      for (i=0; i<1003; i++) {
+      for (i=0; i<936; i++) {
         xstep.step(1, FORWARD, INTERLEAVE);
     
         delay(2);
@@ -45,7 +50,7 @@ void movexstep(int dir){
     }
   } else {
     for (int j = 0; j < dir; j++){
-      for (i=0; i<1003; i++) {
+      for (i=0; i<936; i++) {
         xstep.step(1, BACKWARD, INTERLEAVE);
     
         delay(2);
@@ -85,7 +90,6 @@ void reset(){
     
     if (xf && yf) {
       inited = true;
-      MainboardSerial.println("start");
       return;
     }
     
@@ -120,8 +124,207 @@ void sendDistance(String data){
   int dataLength = data.length();
   int x = data.substring(0, blank).toInt();
   int y = data.substring(blank + 1, dataLength).toInt();
-  movexstep(x - fx); // 목적지 - 현재위치
-  moveystep(y - fy);
+  if( fx == 5 && fx == x && fy != y){
+    moveystep(1);
+    fx += 1;
+  }
+  if ( fy == 5 && fy == y && fx != x){
+    movexstep(1);
+    fy += 1;
+  }
+  if ( fx == 10 && fx == fy){
+    if (abs(y - fy) >= abs(x - fx)){
+      movexstep(y - fy);
+      moveystep(x - fx);
+    } else {
+      moveystep(x - fx);
+      movexstep(y - fy);
+    }
+  } else {
+    if (fx == 0 || fx == 10){
+      movexstep(y - fy); // 목적지 - 현재위치
+      moveystep(x - fx);
+    } else {
+      moveystep(x - fx); // 목적지 - 현재위치
+      movexstep(y - fy);
+    }
+  }
   fx = x;
   fy = y;
+}
+
+void plocation(int player){
+  if (fx == 0 && 0 < fy && fy < 10){ // 1번라인
+    switch(player){
+      case 0:
+        ystep.step(200, BACKWARD, INTERLEAVE);
+        xstep.step(200, BACKWARD, INTERLEAVE);
+        break;
+      case 1:
+        ystep.step(400, BACKWARD, INTERLEAVE);
+        xstep.step(200, BACKWARD, INTERLEAVE);
+        break;
+      case 2:
+        ystep.step(200, BACKWARD, INTERLEAVE);
+        xstep.step(200, FORWARD, INTERLEAVE);
+        break;
+      case 3:
+        ystep.step(400, BACKWARD, INTERLEAVE);
+        xstep.step(200, FORWARD, INTERLEAVE);
+        break;
+      default:
+        break;
+    }
+  } else if (fy == 10 && 0 < fx && fx < 10){ // 2번 라인
+    switch(player){
+      case 0:
+        xstep.step(200, FORWARD, INTERLEAVE);
+        ystep.step(200, BACKWARD, INTERLEAVE);
+        break;
+      case 1:
+        xstep.step(400, FORWARD, INTERLEAVE);
+        ystep.step(200, BACKWARD, INTERLEAVE);
+        break;
+      case 2:
+        xstep.step(200, FORWARD, INTERLEAVE);
+        ystep.step(200, FORWARD, INTERLEAVE);
+        break;
+      case 3:
+        xstep.step(400, FORWARD, INTERLEAVE);
+        ystep.step(200, FORWARD, INTERLEAVE);
+        break;
+      default:
+        break;
+    }
+  } else if (fx == 10 && 10 > fy && fy > 0){ // 3번 라인
+    switch(player){
+      case 0:
+        ystep.step(200, FORWARD, INTERLEAVE);
+        xstep.step(200, FORWARD, INTERLEAVE);
+        break;
+      case 1:
+        ystep.step(400, FORWARD, INTERLEAVE);
+        xstep.step(200, FORWARD, INTERLEAVE);
+        break;
+      case 2:
+        ystep.step(200, FORWARD, INTERLEAVE);
+        xstep.step(200, BACKWARD, INTERLEAVE);
+        break;
+      case 3:
+        ystep.step(400, FORWARD, INTERLEAVE);
+        xstep.step(200, BACKWARD, INTERLEAVE);
+        break;
+      default:
+        break;
+    }
+  } else if (fy == 0 && 0 < fx && fx < 10){ // 4번 라인
+    switch(player){
+      case 0:
+        xstep.step(200, BACKWARD, INTERLEAVE);
+        ystep.step(200, FORWARD, INTERLEAVE);
+        break;
+      case 1:
+        xstep.step(400, BACKWARD, INTERLEAVE);
+        ystep.step(200, FORWARD, INTERLEAVE);
+        break;
+      case 2:
+        xstep.step(200, BACKWARD, INTERLEAVE);
+        ystep.step(200, BACKWARD, INTERLEAVE);
+        break;
+      case 3:
+        xstep.step(400, BACKWARD, INTERLEAVE);
+        ystep.step(200, BACKWARD, INTERLEAVE);
+        break;
+      default:
+        break;
+    }
+  }
+}
+
+void comebackline(int player){
+  if (fx == 0 && 0 < fy && fy < 10){ // 1번라인
+    switch(player){
+      case 0:
+        xstep.step(200, FORWARD, INTERLEAVE);
+        ystep.step(200, FORWARD, INTERLEAVE);
+        break;
+      case 1:
+        xstep.step(200, FORWARD, INTERLEAVE);
+        ystep.step(400, FORWARD, INTERLEAVE);
+        break;
+      case 2:
+        xstep.step(200, BACKWARD, INTERLEAVE);
+        ystep.step(200, FORWARD, INTERLEAVE);
+        break;
+      case 3:
+        xstep.step(200, BACKWARD, INTERLEAVE);
+        ystep.step(400, FORWARD, INTERLEAVE);
+        break;
+      default:
+        break;
+    }
+  } else if (fy == 10 && 0 < fx && fx < 10){ // 2번 라인
+    switch(player){
+      case 0:
+        ystep.step(200, FORWARD, INTERLEAVE);
+        xstep.step(200, BACKWARD, INTERLEAVE);
+        break;
+      case 1:
+        ystep.step(200, FORWARD, INTERLEAVE);
+        xstep.step(400, BACKWARD, INTERLEAVE);
+        break;
+      case 2:
+        ystep.step(200, BACKWARD, INTERLEAVE);
+        xstep.step(200, BACKWARD, INTERLEAVE);
+        break;
+      case 3:
+        ystep.step(200, BACKWARD, INTERLEAVE);
+        xstep.step(400, BACKWARD, INTERLEAVE);
+        break;
+      default:
+        break;
+    }
+  } else if (fx == 10 && 10 > fy && fy > 0){ // 3번 라인
+    switch(player){
+      case 0:
+        xstep.step(200, BACKWARD, INTERLEAVE);
+        ystep.step(200, BACKWARD, INTERLEAVE);
+        break;
+      case 1:
+        xstep.step(200, BACKWARD, INTERLEAVE);
+        ystep.step(400, BACKWARD, INTERLEAVE);
+        break;
+      case 2:
+        xstep.step(200, FORWARD, INTERLEAVE);
+        ystep.step(200, BACKWARD, INTERLEAVE);
+        break;
+      case 3:
+        xstep.step(200, FORWARD, INTERLEAVE);
+        ystep.step(400, BACKWARD, INTERLEAVE);
+        break;
+      default:
+        break;
+    }
+  } else if (fy == 0 && 0 < fx && fx < 10){ // 4번 라인
+    switch(player){
+      case 0:
+        ystep.step(200, BACKWARD, INTERLEAVE);
+        xstep.step(200, FORWARD, INTERLEAVE);
+        break;
+      case 1:
+        ystep.step(200, BACKWARD, INTERLEAVE);
+        xstep.step(400, FORWARD, INTERLEAVE);
+        break;
+      case 2:
+        ystep.step(200, BACKWARD, INTERLEAVE);
+        xstep.step(200, FORWARD, INTERLEAVE);
+        break;
+      case 3:
+        ystep.step(200, BACKWARD, INTERLEAVE);
+        xstep.step(400, FORWARD, INTERLEAVE);
+        break;
+      default:
+        break;
+    }
+  }
 }
