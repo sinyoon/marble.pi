@@ -1,13 +1,12 @@
 #include<SoftwareSerial.h>
 
-SoftwareSerial MainboardSerial(14, 15);
 SoftwareSerial LineSerial(10, 11);
 
 int buenosaires_led[9] = {22, 23, 24, 25, 26, 27, 28, 29, 30};
 int busan_led[3] = {31, 32, 33};
 int sao_paulo_led[9] = {36, 37, 38, 39, 40, 41, 42, 43, 44};
 int sydney_led[9] = {45, 46, 47, 48, 49, 50, 51, 52, 53};
-
+String pl[4] = {"red", "blue", "yellow", "green"};
 String land[11][11] = {
   { "start", "taipei", "golden_key", "beijing", "manila", "jeju_island", "singapore", "golden_key", "cairo", "istanbul", "island"},
   { "seoul", " ", " ", " ", " ", " ", " ", " ", " ", " ", "athens"},
@@ -35,14 +34,14 @@ void setup() {
   Serial.begin(9600);
   while (!Serial) {
   }
-  MainboardSerial.begin(9600);
+  Serial3.begin(9600); //메인 보드
   LineSerial.begin(9600);
 
 }
 
 void loop() { //코드를 무한반복합니다.
-  if (MainboardSerial.available()) {
-    data = MainboardSerial.readStringUntil('\n');
+  if (Serial3.available()) {
+    data = Serial3.readStringUntil('\n');
     blank = data.indexOf(' ');
     if( blank == -1 ){
       String country = sendBuyBuilding(data, " ");
@@ -52,9 +51,9 @@ void loop() { //코드를 무한반복합니다.
     } else {
       String country = sendBuyBuilding(slicing(), data);
       if(country != " "){
-        String player = slicing();
-        String building = slicing();
-        ledOn(player, country, (building.toInt() - 1) * 3);
+        int player = slicing().toInt();
+        int building = slicing().toInt();
+        ledOn(pl[player], country, (building - 1) * 3);
       }
     }
   }

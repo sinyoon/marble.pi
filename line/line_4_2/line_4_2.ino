@@ -5,7 +5,7 @@ SoftwareSerial LineSerial(10, 11);
 int london_led[9] = {22, 23, 24, 25, 26, 27, 28, 29, 30};
 int newyork_led[9] = {34, 35, 36, 37, 38, 39, 40, 41, 42};
 int seoul_led[3] = {43, 44, 45};
-
+String pl[4] = {"red", "blue", "yellow", "green"};
 String data = "";
 int blank = 0;
 
@@ -36,9 +36,9 @@ void loop() { //코드를 무한반복합니다.
       ledOn("off", data, 3);
     } else {
       String country = slicing();
-      String player = slicing();
-      String building = slicing();
-      ledOn(player, country, (building.toInt()-1)*3);
+      int player = slicing().toInt();
+      int building = slicing().toInt();
+      ledOn(pl[player], country, (building-1)*3);
     }
   }
 }

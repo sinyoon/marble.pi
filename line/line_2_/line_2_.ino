@@ -8,6 +8,8 @@ int concorde_led[3] = {51, 52, 53};
 int copenhagen_led[9] = {31, 32, 33, 36, 37, 38, 39, 40, 41};
 int stockholm_led[9] = {42, 43, 44, 45, 46, 47, 48, 49, 50};
 
+String pl[4] = {"red", "blue", "yellow", "green"};
+
 String land[11][11] = {
   { "start", "taipei", "golden_key", "beijing", "manila", "jeju_island", "singapore", "golden_key", "cairo", "istanbul", "island"},
   { "seoul", " ", " ", " ", " ", " ", " ", " ", " ", " ", "athens"},
@@ -54,9 +56,9 @@ void loop() { //코드를 무한반복합니다.
     } else {
       String country = sendBuyBuilding(slicing(), data);
       if(country != " "){
-        String player = slicing();
-        String building = slicing();
-        ledOn(player, country, (building.toInt() - 1) * 3);
+        int player = slicing().toInt();
+        int building = slicing().toInt();
+        ledOn(pl[player], country, (building - 1) * 3);
       }
     }
   }

@@ -6,7 +6,7 @@ int hawaii_led[9] = {22, 23, 24, 25, 26, 27, 28, 29, 30};
 int queen_elizabeth_led[3] = {31, 32, 33};
 int lisbon_led[9] = {36, 37, 38, 39, 40, 41, 42, 43, 44};
 int madrid_led[9] = {45, 46, 47, 48, 49, 50, 51, 52, 53};
-
+String pl[4] = {"red", "blue", "yellow", "green"};
 String data = "";
 int blank = 0;
 
@@ -34,9 +34,9 @@ void loop() { //코드를 무한반복합니다.
       ledOn("off", data, 3);
     } else {
       String country = slicing();
-      String player = slicing();
-      String building = slicing();
-      ledOn(player, country, (building.toInt()-1)*3);
+      int player = slicing().toInt();
+      int building = slicing().toInt();
+      ledOn(pl[player], country, (building-1)*3);
     }
   }
 }

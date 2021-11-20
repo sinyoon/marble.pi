@@ -8,7 +8,7 @@ int ottawa_led[9] = {45, 46, 47, 48, 49, 50, 51, 52, 53};
 
 String data = "";
 int blank = 0;
-
+String pl[4] = {"red", "blue", "yellow", "green"};
 void setup() {
   for (int i = 22; i <= 53; i++) {
     pinMode(i, OUTPUT);
@@ -29,9 +29,9 @@ void loop() { //코드를 무한반복합니다.
       ledOn("off", data, 3);
     } else {
       String country = slicing();
-      String player = slicing();
-      String building = slicing();
-      ledOn(player, country, (building.toInt()-1)*3);
+      int player = slicing().toInt();
+      int building = slicing().toInt();
+      ledOn(pl[player], country, (building-1)*3);
     }
   }
 }
