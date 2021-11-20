@@ -15,23 +15,6 @@ void setup() {
 }
 
 void loop() { //코드를 무한반복합니다.
-  if (StepmotorSerial.available() || Serial1.available()) {
-    inited = true;
-  }
-  if (Serial.available()) {
-    inited = false;
-    String inString = Serial.readStringUntil('\n');
-    int blank = inString.indexOf(' ');
-    String first = inString.substring(0, blank);
-    
-    if( first == "M" ){  
-      StepmotorSerial.println(inString);
-    } else if( first == "L" ){
-      Serial1.println(inString);
-    } else if( first == "B"){
-      Serial1.println(inString);
-    }
-  }
   if (inited){
     if (Serial2.available()){
       int diceNum = Serial2.readString().toInt();
@@ -39,6 +22,29 @@ void loop() { //코드를 무한반복합니다.
       inited = false;
     }
   }
-  delay(1000);
-
+  delay(100);
+  if(StepmotorSerial.available()||Serial1.available()) {
+    inited = true;
+  }
+  delay(100);
+  if (Serial.available()) {
+    inited = false;
+    String inString = Serial.readStringUntil('\n');
+    int blank = inString.indexOf(' ');
+    int slength = inString.length();
+    String first = inString.substring(0, blank);
+    
+    if( first == "M" ){
+      inString = inString.substring(blank + 1, slength);  
+      StepmotorSerial.println(inString);
+    }
+    if( first == "L" ){
+      Serial1.println(inString);
+    }
+    if( first == "B"){
+      Serial1.println(inString);
+    }
+  }
+  
+  delay(100);                                                      
 }

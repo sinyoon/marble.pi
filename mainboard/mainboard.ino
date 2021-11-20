@@ -14,12 +14,14 @@ void setup() {
   Serial3.begin(9600); // line3
   Line1Serial.begin(9600);
   Line2Serial.begin(9600);
+  Serial.begin(9600);
 }
 
 void loop() { //코드를 무한반복합니다.
   
   if (Serial1.available()) {
     String inString = Serial1.readStringUntil('\n');
+    Serial.println(inString);
     int inStringLength = inString.length();
     int blank = inString.indexOf(' ');
     String first = inString.substring(0, blank);
